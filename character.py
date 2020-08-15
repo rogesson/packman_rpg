@@ -16,3 +16,4 @@ class Character:
 
         if direction == "down":
             self.y += self.speed * time_passed_seconds
+
