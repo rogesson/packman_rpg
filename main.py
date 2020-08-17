@@ -9,10 +9,41 @@ def main():
     SCREEN_SIZE = (640, 480)
 
     pygame.init()
+    pygame.display.set_caption("Pack-Man RPG")
     screen = pygame.display.set_mode(SCREEN_SIZE, RESIZABLE, 32)
     clock = pygame.time.Clock()
 
     hero = Character(0, 0)
+
+    hero_skin = pygame.Surface((32, 32))
+    hero_skin.fill((255, 255, 255))
+    wall_skin = pygame.Surface((32, 32))
+    wall_skin.fill((255, 0, 0))
+
+    path = pygame.Surface((32, 32))
+    path.fill((0, 255, 0))
+
+    #walls = [
+    #    [(0, 0), (10, 0), (20, 0), (30, 0)]
+    #]
+
+    walls = [
+            [False, False, False, False, False,  False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [True,  True,  True,  True,  False, False,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True ],
+            [False, False, False, True,  True,  True, True, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+            [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
+    ]
 
     while True:
         for event in pygame.event.get():
@@ -40,9 +71,17 @@ def main():
         if direction:
             hero.walk(direction, time_passed_seconds)
 
-        pygame.draw.circle(screen, (0, 0, 255), (int(hero.x) + 10, int(hero.y) + 10), 10)
+        screen.blit(hero_skin, (hero.x, hero.y))
+        for y, wall in enumerate(walls):
+            for x, w in enumerate(wall):
+                if w is True:
+                    position = (x * 32, y * 32)
+                    screen.blit(path, position)
+                    continue
+                position = (x * 32, y * 32)
+                screen.blit(wall_skin, position)
 
-        pygame.display.flip()
+        pygame.display.update()
 
     pygame.quit()
 if __name__ == "__main__":
