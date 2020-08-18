@@ -16,4 +16,6 @@ class Character:
 
         if direction == "down":
             self.y += self.speed * time_passed_seconds
-
+    
+    def position(self):
+        return (int(self.x / 32) * 32, int(self.y / 32) * 32)

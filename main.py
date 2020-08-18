@@ -23,10 +23,6 @@ def main():
     path = pygame.Surface((32, 32))
     path.fill((0, 255, 0))
 
-    #walls = [
-    #    [(0, 0), (10, 0), (20, 0), (30, 0)]
-    #]
-
     walls = [
             [False, False, False, False, False,  False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
             [True,  True,  True,  True,  False, False,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True ],
@@ -71,18 +67,21 @@ def main():
         if direction:
             hero.walk(direction, time_passed_seconds)
 
-        screen.blit(hero_skin, (hero.x, hero.y))
         for y, wall in enumerate(walls):
             for x, w in enumerate(wall):
+                position = (x * 32, y * 32)
+                hpos = hero.position()
+
                 if w is True:
                     position = (x * 32, y * 32)
                     screen.blit(path, position)
                     continue
-                position = (x * 32, y * 32)
                 screen.blit(wall_skin, position)
 
+        screen.blit(hero_skin, (hero.x, hero.y))
         pygame.display.update()
 
     pygame.quit()
+
 if __name__ == "__main__":
     main()
